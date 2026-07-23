@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planner/screens/login_screen.dart';
+import 'package:planner/screens/onboarding_screen.dart';
 import 'package:planner/screens/splash_screen.dart';
 
 void main() async {
@@ -15,9 +16,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Planner',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
       home: const LoginScreen(),
     );
   }

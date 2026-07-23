@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       return 'Please enter your password';
                     }
                     if (val.length < 7) {
-                      return 'Password must be longet than 6 characters';
+                      return 'Password must be longer than 6 characters';
                     }
 
                     return null;
