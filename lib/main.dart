@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Planner',
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
+      home: const OnboardingScreen(),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:planner/screens/sign_up_screen.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
+import '../widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,14 +20,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(24),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -54,87 +56,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 5),
 
                 //email
-                TextFormField(
+                CustomTextField(
+                  hintText: "Please enter your email",
                   controller: _emailController,
-                  decoration: InputDecoration(
-                    hintText: "Please enter your email",
-                    hintStyle: TextStyle(color: Color(0XFF8897AD)),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFFD4D7E3)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFF1D4AE9)),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                  ),
-
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Please enter your email';
-                    }
-
-                    if (val.length < 5) {
-                      return 'Email must be longer than 5 characters.';
-                    }
-
-                    return null;
-                  },
                 ),
                 SizedBox(height: 20),
                 //password
                 Text('Password'),
                 SizedBox(height: 5),
-                TextFormField(
-                  obscureText: hidePassword,
+                CustomTextField(
+                  hintText: "Please enter your password",
                   controller: _passwordController,
-                  decoration: InputDecoration(
-                    hintText: "Please enter your password",
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        setState(() => hidePassword = !hidePassword);
-                      },
-                      child: Icon(
-                        hidePassword ? Icons.visibility_off : Icons.visibility,
-                      ),
-                    ),
-                    hintStyle: TextStyle(color: Color(0XFF8897AD)),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFFD4D7E3)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFF1D4AE9)),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Colors.red),
-                    ),
-                  ),
-
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    if (val.length < 7) {
-                      return 'Password must be longer than 6 characters';
-                    }
-
-                    return null;
-                  },
+                  isPassword: true,
                 ),
                 SizedBox(height: 10),
                 Row(

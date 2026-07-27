@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
+import '../widgets/custom_text_field.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -69,128 +70,67 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(height: 20),
                 Text('Name'),
                 SizedBox(height: 5),
-                TextFormField(
+                CustomTextField(
                   controller: _nameController,
-                  decoration: InputDecoration(
-                    hintText: "Please enter your name",
-                    hintStyle: TextStyle(color: Color(0XFF8897AD)),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFFD4D7E3)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFF1D4AE9)),
-                    ),
-                  ),
-                  validator: (name) {
-                    if (_nameController.text.isEmpty) {
-                      return 'Please enter your name';
-                    }
-                  },
+                  hintText: 'Enter your name',
                 ),
                 SizedBox(height: 20),
                 Text('Email'),
                 SizedBox(height: 5),
-                TextFormField(
+                CustomTextField(
                   controller: _emailController,
-                  decoration: InputDecoration(
-                    hintText: "Please enter your email",
-                    hintStyle: TextStyle(color: Color(0XFF8897AD)),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFFD4D7E3)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFF1D4AE9)),
-                    ),
-                  ),
-                  validator: (email) {
-                    final emailRegex = RegExp(
-                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-                    );
-                    final isValidEmail = emailRegex.hasMatch(
-                      _emailController.text,
-                    );
-                    if (!isValidEmail) {
-                      return 'Please enter a valid email address';
-                    }
-                  },
+                  hintText: 'Enter your email',
                 ),
+
                 SizedBox(height: 20),
                 Text('Password'),
                 SizedBox(height: 5),
-                TextFormField(
+                CustomTextField(
                   controller: _passwordController,
-                  obscureText: hidePassword,
-                  decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        hidePassword = !hidePassword;
-                        setState(() {});
-                      },
-                      child: hidePassword
-                          ? Icon(Icons.visibility_off)
-                          : Icon(Icons.visibility),
-                    ),
-                    hintText: "Please enter your password",
-                    hintStyle: TextStyle(color: Color(0XFF8897AD)),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFFD4D7E3)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFF1D4AE9)),
-                    ),
-                  ),
-                  validator: (password1) {
-                    if (_passwordController.text.isEmpty) {
-                      return 'Please enter the password';
-                    }
-
-                    if (_passwordController.text.length < 6) {
-                      return 'Password length must be greater than 6';
-                    }
-                  },
+                  hintText: 'Please enter your password',
+                  isPassword: true,
                 ),
+
+                // TextFormField(
+                //   controller: _passwordController,
+                //   obscureText: hidePassword,
+                //   decoration: InputDecoration(
+                //     suffixIcon: GestureDetector(
+                //       onTap: () {
+                //         hidePassword = !hidePassword;
+                //         setState(() {});
+                //       },
+                //       child: hidePassword
+                //           ? Icon(Icons.visibility_off)
+                //           : Icon(Icons.visibility),
+                //     ),
+                //     hintText: "Please enter your password",
+                //     hintStyle: TextStyle(color: Color(0XFF8897AD)),
+                //     enabledBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(8),
+                //       borderSide: BorderSide(color: Color(0XFFD4D7E3)),
+                //     ),
+                //     focusedBorder: OutlineInputBorder(
+                //       borderRadius: BorderRadius.circular(8),
+                //       borderSide: BorderSide(color: Color(0XFF1D4AE9)),
+                //     ),
+                //   ),
+                //   validator: (password1) {
+                //     if (_passwordController.text.isEmpty) {
+                //       return 'Please enter the password';
+                //     }
+                //     if (_passwordController.text.length < 6) {
+                //       return 'Password length must be greater than 6';
+                //     }
+                //   },
+                // ),
                 SizedBox(height: 20),
                 Text('Confirm Password'),
                 SizedBox(height: 5),
-                TextFormField(
+                CustomTextField(
                   controller: _password2Controller,
-                  obscureText: hidePassword2,
-                  decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        hidePassword2 = !hidePassword2;
-                        setState(() {});
-                      },
-                      child: hidePassword2
-                          ? Icon(Icons.visibility_off)
-                          : Icon(Icons.visibility),
-                    ),
-                    hintText: "Confirm your password",
-                    hintStyle: TextStyle(color: Color(0XFF8897AD)),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFFD4D7E3)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0XFF1D4AE9)),
-                    ),
-                  ),
-                  validator: (_) {
-                    if (_password2Controller.text.isEmpty) {
-                      return 'Please enter the second password';
-                    }
-
-                    if (_passwordController.text.length < 6) {
-                      return 'Password length must be greater than 6';
-                    }
-                  },
+                  hintText: 'Confirm your password',
+                  isPassword: true,
                 ),
                 SizedBox(height: 20),
                 GestureDetector(

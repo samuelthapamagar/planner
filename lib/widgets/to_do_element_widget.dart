@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:planner/models/task_model.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
 
 class TodoElementWidget extends StatelessWidget {
-  const TodoElementWidget({super.key});
+  const TodoElementWidget({required this.task, super.key});
+
+  final TaskModel task;
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +20,15 @@ class TodoElementWidget extends StatelessWidget {
       backgroundColor: AppColors.backGroundGrey,
       childrenPadding: EdgeInsets.only(left: 60, top: 10, bottom: 10),
       leading: Checkbox(
-        value: false,
+        value: task.isDone,
         side: BorderSide(color: Colors.grey, width: 2),
         onChanged: (val) {},
       ),
-      title: Text('Get the work done', style: kBodyTextStyle),
+      title: Text(task.title, style: kBodyTextStyle),
       showTrailingIcon: false,
       children: [
         Text(
-          'This task should be done by tomorrow. This is awesome.',
+          task.description,
           style: kBodyTextStyle.copyWith(color: AppColors.textColor02),
         ),
       ],

@@ -42,7 +42,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     return SizedBox(height: 16);
                   },
                   itemBuilder: (context, index) {
-                    return TodoElementWidget();
+                    return SizedBox.shrink();
                   },
                 ),
               ),
