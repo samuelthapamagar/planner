@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planner/models/task_model.dart';
+import 'package:planner/providers/task_provider.dart';
+import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
 
@@ -22,7 +24,9 @@ class TodoElementWidget extends StatelessWidget {
       leading: Checkbox(
         value: task.isDone,
         side: BorderSide(color: Colors.grey, width: 2),
-        onChanged: (val) {},
+        onChanged: (val) {
+          context.read<TaskProvider>().toggleDone(taskId: task.id);
+        },
       ),
       title: Text(task.title, style: kBodyTextStyle),
       showTrailingIcon: false,

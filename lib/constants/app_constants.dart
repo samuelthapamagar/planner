@@ -17,8 +17,8 @@ TextStyle kBodyTextStyle = GoogleFonts.urbanist(
   fontWeight: FontWeight.w600,
 );
 
-class AppTextStyles {
-  static TextStyle primaryTextStyle() {
-    return TextStyle();
-  }
-}
+// class AppTextStyles {
+//   static TextStyle primaryTextStyle() {
+//     return TextStyle();
+//   }
+// }

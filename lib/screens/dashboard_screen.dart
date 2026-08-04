@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:planner/providers/task_provider.dart';
 import 'package:planner/screens/search_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/app_colors.dart';
 import '../widgets/add_task_sheet.dart';
@@ -25,6 +27,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           currentIndex = index;
+          if (index == 1) {
+            showModalBottomSheet(
+              backgroundColor: Colors.white,
+              context: context,
+              builder: (context) {
+                return AddTaskSheet();
+              },
+            );
+          }
+
+          //dragablescrollablesheet
           setState(() {});
         },
         currentIndex: currentIndex,

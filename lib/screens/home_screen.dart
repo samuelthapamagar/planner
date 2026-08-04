@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:planner/models/task_model.dart';
+import 'package:planner/providers/task_provider.dart';
+import 'package:planner/widgets/empty_task_widget.dart';
+import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
 import '../widgets/to_do_element_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
+    final allTasks = context.watch<TaskProvider>().allTasks;
+    final undoneTasks = context.watch<TaskProvider>().unDoneTasks;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -32,7 +43,7 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 5),
               Text(
-                'You’ve got 7 tasks to do.',
+                'You’ve got ${undoneTasks.length} tasks to do.',
                 style: GoogleFonts.urbanist(
                   fontWeight: FontWeight.normal,
                   fontSize: 16,
@@ -40,55 +51,17 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 32),
-              Expanded(
-                child: ListView(
-                  children: [
-                    TodoElementWidget(
-                      task: TaskModel(
-                        title: 'Get the work done',
-                        description: 'This is the description of the task',
-                        isDone: false,
-                      ),
-                    ),
-                    // SizedBox(height: 12),
-                    // TodoElementWidget(
-                    //   title: 'Finish weather app',
-                    //   // description: 'This task must be done by Sunday',
-                    // ),
-                    // SizedBox(height: 12),
-                    // TodoElementWidget(
-                    //   title: 'Visit doctor',
-                    //   description: 'Visit doctor on time',
-                    // ),
-                    // SizedBox(height: 12),
-                    // TodoElementWidget(
-                    //   title: 'Get the work done',
-                    //   description:
-                    //       'This task should be done by tomorrow. This is awesome.',
-                    // ),
-                    SizedBox(height: 12),
-                  ],
-                ),
-              ),
+              if (allTasks.isEmpty) Expanded(child: EmptyTaskWidget()),
 
-              // Expanded(
-              //   child: ListView(
-              //     children: [
-              //       TodoElementWidget(),
-              //       SizedBox(height: 12),
-              //       TodoElementWidget(),
-              //       SizedBox(height: 12),
-              //       TodoElementWidget(),
-              //       SizedBox(height: 12),
-              //       TodoElementWidget(),
-              //       SizedBox(height: 12),
-              //       TodoElementWidget(),
-              //       SizedBox(height: 12),
-              //       TodoElementWidget(),
-              //       SizedBox(height: 12),
-              //     ],
-              //   ),
-              // ),
+              if (allTasks.isNotEmpty)
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: allTasks.length,
+                    separatorBuilder: (_, index) => SizedBox(height: 12),
+                    itemBuilder: (_, index) =>
+                        TodoElementWidget(task: allTasks[index]),
+                  ),
+                ),
             ],
           ),
         ),
