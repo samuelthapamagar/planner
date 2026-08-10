@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planner/constants/app_colors.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -46,6 +47,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Color(0XFF1D4AE9)),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.red),
         ),
       ),
       validator: widget.validator,

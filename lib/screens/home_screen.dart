@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     TextSpan(text: 'Welcome, ', style: kHeadingTextStyle1),
                     TextSpan(
-                      text: 'John',
+                      text:
+                          FirebaseAuth.instance.currentUser?.displayName ??
+                          'No user',
                       style: kHeadingTextStyle1.copyWith(
                         color: AppColors.themeColor,
                       ),
