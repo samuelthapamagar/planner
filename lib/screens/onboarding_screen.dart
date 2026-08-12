@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/app_colors.dart';
+import '../constants/app_constants.dart';
 import 'login_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -28,10 +30,16 @@ class OnboardingScreen extends StatelessWidget {
           SizedBox(height: 20),
           ElevatedButton(
             onPressed: () async {
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              prefs.setBool('firstTime', false);
+
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => LoginScreen()),
               );
+
+              // first time set to false .. locally
             },
             child: Text(
               'Get started',

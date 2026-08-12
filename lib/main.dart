@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:planner/providers/app_auth_provider.dart';
 import 'package:planner/providers/task_provider.dart';
 import 'package:planner/screens/onboarding_screen.dart';
+import 'package:planner/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Planner',
         debugShowCheckedModeBanner: false,
-        home: const OnboardingScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

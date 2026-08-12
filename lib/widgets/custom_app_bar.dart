@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,16 +21,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: false,
       actions: [
-        Text(
-          'taski',
-          style: GoogleFonts.urbanist(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(width: 12),
         GestureDetector(
-          onTap: () {
+          onTap: () async {
+            await FirebaseAuth.instance.signOut();
+
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => LoginScreen()),
