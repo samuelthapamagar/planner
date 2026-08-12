@@ -6,17 +6,18 @@ import 'package:planner/constants/app_colors.dart';
 import 'package:planner/screens/dashboard_screen.dart';
 
 class AppAuthProvider extends ChangeNotifier {
-  //
-  //
-  //
+  final _auth = FirebaseAuth.instance;
+
   void signUp({
     required BuildContext context,
     required String email,
     required String password,
   }) async {
     try {
-      final userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
       if (userCredential.user == null) {
         Fluttertoast.showToast(
@@ -51,8 +52,10 @@ class AppAuthProvider extends ChangeNotifier {
     required String password,
   }) async {
     try {
-      final userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      final userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       if (userCredential.user == null) {
         Fluttertoast.showToast(
           msg: 'User does not exist',

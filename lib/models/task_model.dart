@@ -10,12 +10,14 @@ String taskModelToJson(TaskModel data) => json.encode(data.toJson());
 
 class TaskModel {
   final String title;
+  final String createdBy;
   final String description;
   final bool isDone;
   final int id;
 
   TaskModel({
     required this.title,
+    required this.createdBy,
     required this.description,
     required this.isDone,
     required this.id,
@@ -23,11 +25,13 @@ class TaskModel {
 
   TaskModel copyWith({
     String? title,
+    String? createdBy,
     String? description,
     bool? isDone,
     int? id,
   }) => TaskModel(
     title: title ?? this.title,
+    createdBy: createdBy ?? this.createdBy,
     description: description ?? this.description,
     isDone: isDone ?? this.isDone,
     id: id ?? this.id,
@@ -35,6 +39,7 @@ class TaskModel {
 
   factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
     title: json["title"],
+    createdBy: json["createdBy"],
     description: json["description"],
     isDone: json["isDone"],
     id: json["id"],
@@ -42,6 +47,7 @@ class TaskModel {
 
   Map<String, dynamic> toJson() => {
     "title": title,
+    "createdBy": createdBy,
     "description": description,
     "isDone": isDone,
     "id": id,

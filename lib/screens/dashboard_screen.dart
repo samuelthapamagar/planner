@@ -1,16 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:planner/providers/task_provider.dart';
 import 'package:planner/screens/search_screen.dart';
 import 'package:provider/provider.dart';
-
-import '../constants/app_colors.dart';
 import '../widgets/add_task_sheet.dart';
 import '../widgets/custom_app_bar.dart';
 import 'done_screen.dart';
 import 'home_screen.dart';
-import 'login_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -21,6 +16,17 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int currentIndex = 0;
+
+  void init() {
+    context.read<TaskProvider>().fetchAllTasks();
+  }
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -32,12 +32,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
       if (isLoggedIn) {
         //if logged in -> dashboard screen
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => DashboardScreen()),
         );
       } else {
         // if not logged in then -> login screen
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => LoginScreen()),

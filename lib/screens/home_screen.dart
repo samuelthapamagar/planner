@@ -20,7 +20,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final allTasks = context.watch<TaskProvider>().allTasks;
     final undoneTasks = context.watch<TaskProvider>().unDoneTasks;
     return Scaffold(
       body: SafeArea(
@@ -54,17 +53,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(height: 32),
-              if (allTasks.isEmpty) Expanded(child: EmptyTaskWidget()),
 
-              if (allTasks.isNotEmpty)
-                Expanded(
-                  child: ListView.separated(
-                    itemCount: allTasks.length,
-                    separatorBuilder: (_, index) => SizedBox(height: 12),
-                    itemBuilder: (_, index) =>
-                        TodoElementWidget(task: allTasks[index]),
-                  ),
-                ),
+              Consumer<TaskProvider>(
+                builder: (_, taskProvider, _) {
+                  if (taskProvider.isLoading) {
+                    return Expanded(
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+
+                  if (taskProvider.allTasks.isNotEmpty) {
+                    return Expanded(
+                      child: ListView.separated(
+                        itemCount: taskProvider.allTasks.length,
+                        separatorBuilder: (_, index) => SizedBox(height: 12),
+                        itemBuilder: (_, index) => TodoElementWidget(
+                          task: taskProvider.allTasks[index],
+                        ),
+                      ),
+                    );
+                  }
+
+                  return Expanded(child: EmptyTaskWidget());
+                },
+              ),
             ],
           ),
         ),
