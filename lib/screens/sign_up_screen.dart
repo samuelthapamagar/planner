@@ -30,6 +30,7 @@ class _SignupScreenState extends State<SignupScreen> {
         context: context,
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
+        name: _nameController.text,
       );
     } else {
       Fluttertoast.showToast(

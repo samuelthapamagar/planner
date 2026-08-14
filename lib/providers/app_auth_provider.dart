@@ -1,17 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:planner/constants/app_colors.dart';
+import 'package:planner/models/user_model.dart';
 import 'package:planner/screens/dashboard_screen.dart';
 
 class AppAuthProvider extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
+  final String allUsersCollection = 'allUsers';
+
+  UserModel? userData;
 
   void signUp({
     required BuildContext context,
     required String email,
     required String password,
+    required String name,
   }) async {
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(
@@ -21,11 +26,19 @@ class AppAuthProvider extends ChangeNotifier {
 
       if (userCredential.user == null) {
         Fluttertoast.showToast(
-          msg: 'User does not exist',
+          msg: 'Cannot create account',
           backgroundColor: Colors.red,
         );
         return;
       }
+
+      var data = {"name": name, "email": email};
+
+      //save user data to firebase
+      await FirebaseFirestore.instance
+          .collection(allUsersCollection)
+          .doc(email)
+          .set(data);
 
       Fluttertoast.showToast(
         msg: 'Account created successfully',
@@ -64,6 +77,7 @@ class AppAuthProvider extends ChangeNotifier {
         return;
       }
 
+      getUserData();
       Fluttertoast.showToast(
         msg: 'Logged in successfully',
         backgroundColor: AppColors.success,
@@ -73,6 +87,8 @@ class AppAuthProvider extends ChangeNotifier {
         context,
         MaterialPageRoute(builder: (_) => DashboardScreen()),
       );
+
+      notifyListeners();
     } on FirebaseAuthException catch (firebaseAuthError) {
       Fluttertoast.showToast(
         timeInSecForIosWeb: 5,
@@ -85,5 +101,23 @@ class AppAuthProvider extends ChangeNotifier {
         backgroundColor: AppColors.error,
       );
     }
+  }
+
+  void getUserData() async {
+    final documentSnapshot = await FirebaseFirestore.instance
+        .collection(allUsersCollection)
+        .doc(_auth.currentUser!.email!)
+        .get();
+
+    final userDataAsMap = documentSnapshot.data() as Map<String, dynamic>;
+
+    userData = UserModel.fromJson(userDataAsMap);
+    notifyListeners();
+  }
+
+  Future<void> signOut() async {
+    _auth.signOut();
+    userData = null;
+    notifyListeners();
   }
 }

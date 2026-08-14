@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planner/providers/app_auth_provider.dart';
 import 'package:planner/providers/task_provider.dart';
 import 'package:planner/screens/search_screen.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   int currentIndex = 0;
 
   void init() {
-    context.read<TaskProvider>().fetchAllTasks();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<TaskProvider>().fetchAllTasks();
+
+      context.read<AppAuthProvider>().getUserData();
+    });
   }
 
   @override
